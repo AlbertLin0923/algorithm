@@ -1,0 +1,155 @@
+# 广度优先
+
+> 也就是 广度优先算法 bfs Breadth First Search
+
+## 参考资料
+
+[JS 前序遍历、中序遍历、后序遍历、层序遍历详解，深度优先与广度优先区别，附 leetcode 例题题解答案](https://www.cnblogs.com/echolun/p/13328927.html)
+
+[五三想休息，今天还学习，图解二叉树的层序遍历 BFS（广度优先）模板，附面试题题解](https://www.cnblogs.com/echolun/p/16219070.html)
+
+## 层序遍历
+
+[102. 二叉树的层序遍历](https://leetcode.cn/problems/binary-tree-level-order-traversal/description/)(中等)
+
+迭代方式解决：
+
+```js
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[][]}
+ */
+var levelOrder = function (root) {
+  if (root === null) return [];
+  const res = [];
+  const queue = [root];
+  while (queue.length) {
+    const len = queue.length;
+    const level = [];
+    for (let i = 0; i < len; i++) {
+      const current = queue.shift();
+      level.push(current.val);
+      current.left && queue.push(current.left);
+      current.right && queue.push(current.right);
+    }
+    res.push(level);
+  }
+  return res;
+};
+```
+
+递归方式解决：
+
+```js
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[][]}
+ */
+var levelOrder = function (root) {
+  const res = [];
+  function traversal(root, depth) {
+    if (root !== null) {
+      if (!res[depth]) {
+        res[depth] = [];
+      }
+      res[depth].push(root.val);
+      root.left && traversal(root.left, depth + 1);
+      root.right && traversal(root.right, depth + 1);
+    }
+  }
+  traversal(root, 0);
+  return res;
+};
+```
+
+[104. 二叉树的最大深度](https://leetcode.cn/problems/maximum-depth-of-binary-tree/description/)(简单)
+
+```js
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var maxDepth = function (root) {
+  if (!root) return 0;
+  if (!root.left && !root.right) return 1;
+  let result = 1;
+  const queue = [root];
+  while (queue.length) {
+    // 当前层的节点个数
+    const len = queue.length;
+    // 逐个让当前层的节点出列
+    for (let i = 0; i < len; i++) {
+      const current = queue.shift();
+      current.left && queue.push(current.left);
+      current.right && queue.push(current.right);
+    }
+    // 当前层所有节点已经出列，如果队列不为空，说明有下一层节点，depth+1
+    if (queue.length) {
+      result++;
+    }
+  }
+  return result;
+};
+```
+
+[111. 二叉树的最小深度](https://leetcode.cn/problems/minimum-depth-of-binary-tree/)(简单)
+
+```js
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var minDepth = function (root) {
+  if (!root) return 0
+  if (!root.left && !root.right) return 1
+  let result = 1;
+  const queue = [root];
+  while (queue.length) {
+    const len = queue.length;
+    for (let index = 0; index < len; index++) {
+      const current = queue.shift();
+      if (!current.left && !current.right) {
+        return result;
+      } else {
+        current.left && queue.push(current.left);
+        current.right && queue.push(current.right);
+      }
+    }
+    result++
+  }
+  return result
+};
+```
+

@@ -1,0 +1,24 @@
+[
+  {
+    "type": "file",
+    "name": "introduction",
+    "label": "介绍"
+  },
+  {
+    "type": "dir",
+    "name": "tree",
+    "label": "树",
+    "collapsible": true,
+    "collapsed": false
+  },
+  {
+    "type": "file",
+    "name": "queue",
+    "label": "队列"
+  },
+  {
+    "type": "file",
+    "name": "stack",
+    "label": "栈"
+  }
+]

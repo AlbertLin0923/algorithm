@@ -1,0 +1,108 @@
+# 深度优先
+
+> 也就是 深度优先算法 dfs Depth First Search
+
+## 参考资料
+
+[JS 前序遍历、中序遍历、后序遍历、层序遍历详解，深度优先与广度优先区别，附 leetcode 例题题解答案](https://www.cnblogs.com/echolun/p/13328927.html)
+
+## 前序遍历、中序遍历、后序遍历
+
+前序遍历：先访问根，再访问左节点，然后访问左节点的左节点，递归下去，然后才访问右节点
+
+[144. 二叉树的前序遍历](https://leetcode.cn/problems/binary-tree-preorder-traversal/description/)(简单)
+
+```js
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var preorderTraversal = function (root) {
+  const res = [];
+  function traversal(root) {
+    if (root !== null) {
+      res.push(root.val);
+      if (root.left) {
+        traversal(root.left);
+      }
+      if (root.right) {
+        traversal(root.right);
+      }
+    }
+  }
+
+  traversal(root);
+  return res;
+};
+```
+
+中序遍历：当跑到到根节点 B 时，先得看看有没有左子树，正好有，所以先遍历了左子树 A 之后才是 B，最后遍历右子树 C，所以完整顺序顺序为 ABC
+
+[94. 二叉树的中序遍历](https://leetcode.cn/problems/binary-tree-inorder-traversal/description/)(简单)
+
+```js
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var inorderTraversal = function (root) {
+  const res = [];
+  function traversal(root) {
+    if (root !== null) {
+      root.left && traversal(root.left);
+      res.push(root.val);
+      root.right && traversal(root.right);
+    }
+  }
+  traversal(root);
+  return res;
+};
+```
+
+后序遍历：从根节点 C 出发，先访问左子树 A，紧接着右子树 B，最后根节点 C，所以顺序为 ABC
+
+[145. 二叉树的后序遍历](https://leetcode.cn/problems/binary-tree-postorder-traversal/description/)(简单)
+
+```js
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var postorderTraversal = function (root) {
+  const res = [];
+  function traversal(root) {
+    if (root !== null) {
+      root.left && traversal(root.left);
+      root.right && traversal(root.right);
+      res.push(root.val);
+    }
+  }
+  traversal(root);
+
+  return res;
+};
+```
