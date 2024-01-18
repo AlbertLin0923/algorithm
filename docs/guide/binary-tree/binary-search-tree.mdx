@@ -1,0 +1,68 @@
+# 二叉搜索树
+
+[98. 验证二叉搜索树](https://leetcode.cn/problems/validate-binary-search-tree/description/)(中等)
+
+:::tip
+这里需要注意，整颗树左侧都必须小于根节点，右侧也如此；而不仅仅是左节点小于根节点，右节点大于根节点
+:::
+
+错误解法：
+```js
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isValidBST = function (root) {
+  if (root === null) return false
+  function traversal(node) {
+    if (node === null) return null
+    const left = traversal(node.left)
+    const right = traversal(node.right)
+    if (left === false || right === false) {
+      return false
+    } else if (left !== null && left >= node.val) {
+      return false
+    } else if (right !== null && right <= node.val) {
+      return false
+    }
+    return node.val
+  }
+  return traversal(root) !== false
+};
+
+```
+
+```js
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isValidBST = function (root) {
+  const compare = (root, lower, upper) => {
+    if (root === null) {
+      return true
+    }
+    if (root.val <= lower || root.val >= upper) {
+      return false
+    }
+    return compare(root.left, lower, root.val) && compare(root.right, root.val, upper)
+  }
+  return compare(root, -Infinity, Infinity)
+};
+```

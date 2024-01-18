@@ -6,7 +6,7 @@
 
 [JS 前序遍历、中序遍历、后序遍历、层序遍历详解，深度优先与广度优先区别，附 leetcode 例题题解答案](https://www.cnblogs.com/echolun/p/13328927.html)
 
-## 前序遍历、中序遍历、后序遍历
+## 前序遍历
 
 前序遍历：先访问根，再访问左节点，然后访问左节点的左节点，递归下去，然后才访问右节点
 
@@ -30,12 +30,8 @@ var preorderTraversal = function (root) {
   function traversal(root) {
     if (root !== null) {
       res.push(root.val);
-      if (root.left) {
-        traversal(root.left);
-      }
-      if (root.right) {
-        traversal(root.right);
-      }
+      root.left && traversal(root.left);
+      root.right && traversal(root.right);
     }
   }
 
@@ -43,6 +39,8 @@ var preorderTraversal = function (root) {
   return res;
 };
 ```
+
+## 中序遍历
 
 中序遍历：当跑到到根节点 B 时，先得看看有没有左子树，正好有，所以先遍历了左子树 A 之后才是 B，最后遍历右子树 C，所以完整顺序顺序为 ABC
 
@@ -75,6 +73,8 @@ var inorderTraversal = function (root) {
 };
 ```
 
+## 后序遍历
+
 后序遍历：从根节点 C 出发，先访问左子树 A，紧接着右子树 B，最后根节点 C，所以顺序为 ABC
 
 [145. 二叉树的后序遍历](https://leetcode.cn/problems/binary-tree-postorder-traversal/description/)(简单)
@@ -106,3 +106,11 @@ var postorderTraversal = function (root) {
   return res;
 };
 ```
+
+
+
+
+
+
+
+

@@ -6,8 +6,8 @@
   },
   {
     "type": "dir",
-    "name": "tree",
-    "label": "树",
+    "name": "binary-tree",
+    "label": "二叉树",
     "collapsible": true,
     "collapsed": false
   },
