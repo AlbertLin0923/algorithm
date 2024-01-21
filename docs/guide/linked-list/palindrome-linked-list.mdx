@@ -1,0 +1,36 @@
+# 回文链表
+
+[234. 回文链表](https://leetcode.cn/problems/palindrome-linked-list/description/)(简单)
+
+:::tip
+链表只能单向遍历，不连续内存区域，依赖于指针移动来遍历
+所以需要拷贝值出来
+然后进行数组的双指针判断是否回文
+:::
+
+
+```js
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {boolean}
+ */
+var isPalindrome = function (head) {
+  const arr = []
+  while (head) {
+    arr.push(head.val)
+    head = head.next
+  }
+  const len = arr.length
+  for (let i = 0, j = len - 1; i < j; i++, j--) {
+    if (arr[i] !== arr[j]) return false
+  }
+  return true
+};
+```

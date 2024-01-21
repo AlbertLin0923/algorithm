@@ -1,0 +1,140 @@
+# 链表
+
+[83. 删除排序链表中的重复元素](https://leetcode.cn/problems/remove-duplicates-from-sorted-list/description/)(简单)
+
+```js
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var deleteDuplicates = function (head) {
+  if (!head) return head;
+  let current = head;
+
+  while (current.next) {
+    if (current.val === current.next.val) {
+      current.next = current.next.next;
+    } else {
+      current = current.next;
+    }
+  }
+  return head;
+};
+```
+
+[206. 反转链表](https://leetcode.cn/problems/reverse-linked-list/description/)(简单)
+
+:::tip 迭代方式
+:::
+
+```
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var reverseList = function (head) {
+  let preCurrent = null
+  let next = null
+  while (head) {
+      next = head.next
+
+      head.next = preCurrent
+      preCurrent = head
+
+      head = next
+  }
+  return preCurrent
+};
+
+
+```
+
+:::tip 头插法
+
+1.定义一个新的头节点 2.依次将节点插入新头节点与第一个节点之间
+
+:::
+
+```js
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var reverseList = function (head) {
+  // 定义一个新链表
+  let temp = new ListNode();
+  let next = null;
+  while (head) {
+    next = head.next;
+    // 旧链表一个个插入到新链表头尾中间
+    head.next = temp.next;
+    temp.next = head;
+
+    head = next;
+  }
+  return temp.next;
+};
+```
+
+[19. 删除链表的倒数第 N 个结点](https://leetcode.cn/problems/remove-nth-node-from-end-of-list/description/)(简单)
+
+```js
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} n
+ * @return {ListNode}
+ */
+var removeNthFromEnd = function (head, n) {
+  // 获取链表长度
+  let listLength = 0
+  let node = head
+  while (node) {
+    listLength++
+    node = node.next
+  }
+  // 删除的节点的index
+  let deleteNodeIndex = listLength - n
+  // 边界处理：头部删除的时候直接返回head.next
+  if (deleteNodeIndex === 0) return head.next
+
+  // 注意得复制节点出来遍历，因为等下要返回头部head
+  node = head
+  let lastNode = null
+  while (deleteNodeIndex > 0) {
+    lastNode = node
+    node = node.next
+    deleteNodeIndex--
+  }
+  lastNode.next = node.next
+  return head
+};
+```

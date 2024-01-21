@@ -1,0 +1,66 @@
+# 环形链表
+
+:::tip 
+用哈希表处理即可
+:::
+
+[141. 环形链表](https://leetcode.cn/problems/linked-list-cycle/description/)(简单)
+
+```js
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+
+/**
+ * @param {ListNode} head
+ * @return {boolean}
+ */
+var hasCycle = function (head) {
+  const map = new Map();
+  map.set(head, true);
+  while (head) {
+    const next = head.next;
+    if (map.get(next)) {
+      return true;
+    } else {
+      map.set(next, true);
+      head = next;
+    }
+  }
+  return false;
+};
+```
+
+[142. 环形链表 II](https://leetcode.cn/problems/linked-list-cycle-ii/description/)(中等)
+
+```js
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var detectCycle = function (head) {
+  const map = new Map();
+  map.set(head, true);
+  while (head) {
+    const next = head.next;
+    if (map.get(next)) {
+      return next;
+    }
+    map.set(next, true);
+    head = next;
+  }
+  return null;
+};
+```

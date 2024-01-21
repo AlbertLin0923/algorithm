@@ -12,6 +12,13 @@
     "collapsed": false
   },
   {
+    "type": "dir",
+    "name": "linked-list",
+    "label": "链表",
+    "collapsible": true,
+    "collapsed": false
+  },
+  {
     "type": "file",
     "name": "queue",
     "label": "队列"
